@@ -146,6 +146,21 @@ export enum EVideoTypes {
     hls = 'hls.variant.audio',
 }
 
+export enum EUrlscreenshotAgent {
+  desktop = 'desktop',
+  mobile = 'mobile',
+}
+
+export enum EUrlscreenshotMode {
+  all = 'all',
+  window = 'window',
+}
+
+export enum EUrlscreenshotOrientation {
+  portrait = 'portrait',
+  landscape = 'landscape',
+}
+
 /**
  * Video storage location
  */
@@ -383,6 +398,15 @@ export interface TransformOptions {
     watermark_width?: number;
     watermark_height?: number;
   };
+  urlscreenshot?: {
+    agent?: EUrlscreenshotAgent;
+    width?: number;
+    height?: number;
+    mode?: EUrlscreenshotMode;
+    delay?: number;
+    orientation?: EUrlscreenshotOrientation;
+    device?: string;
+  } | true;
 }
 
 /**
@@ -420,7 +444,7 @@ const optionToString = (key: string, values: any): string => {
   }
 
   if (typeof values === 'object' && !Object.keys(values).length) {
-    return '';
+    return key;
   }
 
   // if we just want to enable feature
@@ -454,7 +478,10 @@ const escapeValue = (value: any): any => {
     return value;
   }
 
-  if (value.indexOf('http:') > -1|| value.indexOf('https:') > -1 || value.indexOf('src:') > -1) {
+  if (value.indexOf('http:') > -1
+      || value.indexOf('https:') > -1
+      || value.indexOf('src:') > -1
+      || value.indexOf('/') > -1) {
     return `"${value}"`;
   }
 
@@ -491,11 +518,12 @@ const escapeValue = (value: any): any => {
  * @param options Transformation options
  */
 export const transform = (session: Session, url: string, options: TransformOptions = {}): string => {
-  options = toSnakeCase(valuesToLowerCase(options));
+  options = toSnakeCase(options);
 
   const validate = getValidator(TransformSchema);
 
-  if (!validate(options)) {
+  // use lower case only for validation
+  if (!validate(valuesToLowerCase(JSON.parse(JSON.stringify(options)))) ) {
     throw new FilestackError('Validation error', validate.errors);
   }
 

@@ -29,6 +29,18 @@ describe('storeURL', function storeFunc() {
     assert.throws(() => storeURL(session));
   });
 
+  it('should handle store without params', (done) => {
+    const options = {};
+    storeURL(session, ENV.urls.testImageUrl, options)
+      .then((res) => {
+        assert.ok(res);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
   it('should support uppercase string options', (done) => {
     const options = { location: 'S3' };
     storeURL(session, ENV.urls.testImageUrl, options)
@@ -43,6 +55,18 @@ describe('storeURL', function storeFunc() {
 
   it('should replace ":" and "," with "_" in url', (done) => {
     const options = { filename: 'test:t,est.jpg' };
+    storeURL(session, ENV.urls.testImageUrl, options)
+      .then((res) => {
+        assert.ok(res);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  it('should upload file correctly with "/" in path', (done) => {
+    const options = { filename: 'test.jpg' , path: 'test/path'};
     storeURL(session, ENV.urls.testImageUrl, options)
       .then((res) => {
         assert.ok(res);

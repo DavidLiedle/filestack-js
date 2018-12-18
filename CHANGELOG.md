@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/filestack/filestack-js/compare/v1.8.3...v1.9.0) (2018-12-18)
+
+
+### Features
+
+* **picker:** Add exif removal option to picker ([9ca93b4](https://github.com/filestack/filestack-js/commit/9ca93b4))
+
+
+
+<a name="1.8.3"></a>
+## [1.8.3](https://github.com/filestack/filestack-js/compare/v1.8.2...v1.8.3) (2018-12-11)
+
+
+### Bug Fixes
+
+* **transforms:** allow uppercased values in transform ([#179](https://github.com/filestack/filestack-js/issues/179)) ([9b7c3ba](https://github.com/filestack/filestack-js/commit/9b7c3ba))
+
+
+
+<a name="1.8.2"></a>
+## [1.8.2](https://github.com/filestack/filestack-js/compare/v1.8.1...v1.8.2) (2018-12-10)
+
+
+
 <a name="1.8.1"></a>
 ## [1.8.1](https://github.com/filestack/filestack-js/compare/v1.8.0...v1.8.1) (2018-11-22)
 
